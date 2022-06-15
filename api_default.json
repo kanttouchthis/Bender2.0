@@ -1,0 +1,5 @@
+{
+    "api_token": "",
+    "api_url": "https://api-inference.huggingface.co/models/EleutherAI/gpt-j-6B",
+	"headers": {"Accept": "application/json","Content-Type": "application/json","User-Agent": "Mozilla/5.0 (Windows NT 6.2; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.93 Safari/537.36"}
+}
