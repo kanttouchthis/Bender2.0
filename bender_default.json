@@ -1,0 +1,7 @@
+{
+	"token": "",
+	"channel_id": 0,
+	"command_prefix": "!",
+	"debug": true,
+	"extensions": ["bender.commands", "bender.cogs"]
+}
