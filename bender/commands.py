@@ -35,25 +35,26 @@ async def complete(ctx, *args):
     query = " ".join(args)
     query = {"inputs": query, "wait_for_model": True}
     completed_query = await t5.query(query)
-    completed_query = completed_query[0]['generated_text']
-    if isinstance(completed_query, str):
-        await ctx.send("```{}```".format(completed_query))
-    elif ctx.bot.config["debug"]:
+    if isinstance(completed_query, int) and ctx.bot.config["debug"]:
         await ctx.send("`Error: {}`".format(completed_query))
+    else:
+        completed_query = completed_query[0]['generated_text']
+        await ctx.send("```{}```".format(completed_query))
+
 
 @commands.command()
 async def translate(ctx, *args):
     """
-    send a completion request to gpt server
+    send a translation request to t5 server
     """
     query = " ".join(args)
     query = {"inputs": query, "wait_for_model": True}
     completed_query = await t5.query(query)
-    completed_query = completed_query[0]['translation_text']
-    if isinstance(completed_query, str):
-        await ctx.send("```{}```".format(completed_query))
-    elif ctx.bot.config["debug"]:
+    if isinstance(completed_query, int) and ctx.bot.config["debug"]:
         await ctx.send("`Error: {}`".format(completed_query))
+    else:
+        completed_query = completed_query[0]['translation_text']
+        await ctx.send("```{}```".format(completed_query))
 
 
 @commands.command()
