@@ -2,5 +2,5 @@
 *.sh
 __pycache__
 chatbot/
-!bender_default.json
+!bot_default.json
 !api_default.json

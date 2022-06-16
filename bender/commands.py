@@ -2,6 +2,7 @@ from bender.chatbot import Config
 from discord.ext import commands
 import aiohttp
 import json
+import sys
 
 
 class Api():
@@ -56,6 +57,14 @@ async def translate(ctx, *args):
         completed_query = completed_query[0]['translation_text']
         await ctx.send("```{}```".format(completed_query))
 
+@commands.command()
+async def clearhistory(ctx):
+    """
+    clear the history of the bot
+    """
+    if ctx.bot.response_bot is not None:
+        await ctx.bot.response_bot.reset()
+        await ctx.send("`History cleared`")
 
 @commands.command()
 @commands.has_permissions(administrator=True)
@@ -95,10 +104,21 @@ async def reload(ctx):
     await ctx.bot.reload_extensions()
     await ctx.send("`Reloaded extensions`")
 
+@commands.command()
+@commands.has_permissions(administrator=True)
+async def stop(ctx):
+    """
+    stop the bot
+    """
+    await ctx.send("`Stopping`")
+    sys.exit(0)
+
 def setup(bot):
     bot.add_command(complete)
     bot.add_command(translate)
+    bot.add_command(clearhistory)
     bot.add_command(debug)
     bot.add_command(loadcfg)
     bot.add_command(savecfg)
     bot.add_command(reload)
+    bot.add_command(stop)

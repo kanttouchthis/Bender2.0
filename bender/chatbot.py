@@ -25,6 +25,7 @@ class Bot(commands.Bot):
     def __init__(self, config:Config=Config(), *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.config = config
+        self.response_bot = None
 
     async def on_ready(self):
         print("------")
@@ -57,3 +58,14 @@ class Bot(commands.Bot):
                 print(f"Failed to reload extension {extension}.")
                 print(e)
                 raise e
+    
+    async def on_message(self, message):
+        if message.author.bot:
+            return
+        if message.content.startswith(self.config["command_prefix"]):
+            await self.process_commands(message)
+            return
+        if self.response_bot is not None:
+            response = await self.response_bot.respond(message)
+            if response is not None:
+                await message.channel.send(response)
